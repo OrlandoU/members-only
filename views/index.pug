@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  h1= title
+  .feed 
+    if user
+      if errors
+       for error in errors 
+         .error= error.msg
+      form(action="/post/create" method='POST').post-form
+        textarea(type="text" name='content' id='content' placeholder='Write your message...' rows='1' oninput="this.style.height='auto';this.style.height=(this.scrollHeight) +'px';" onkeydown="this.style.height='auto';this.style.height=(this.scrollHeight) +'px';")
+        span
+        button
+          svg(xmlns="http://www.w3.org/2000/svg" shape-rendering='geometricPrecision' height="24" viewBox="0 0 24 24")
+            path(d="M2,21L23,12L2,3V10L17,12L2,14V21Z")
+    if posts
+     for post in posts 
+      .post(id=post._id) 
+        .post-header
+          .post-name= post.user.full_name
+          a(href="mailto:"+post.user.email).post-mail= post.user.email
+          .post-date= post.formatted_date 
+        .post-content= post.content
+        .post-reactions
+          if user
+            if post.upvotes.includes(user._id)
+              a(href=post.url + '/upvote' class='upvoted') 
+                svg(viewBox="0 0 24 24")
+                  title arrow-up-bold-outline
+                  path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+                count= post.upvotes.length
+            else 
+              a(href=post.url + '/upvote') 
+                svg(viewBox="0 0 24 24")
+                  title arrow-up-bold-outline
+                  path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+                count= post.upvotes.length
+          else
+            a(href='/auth/login')
+              svg(viewBox="0 0 24 24")
+                title arrow-up-bold-outline
+                path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+              count= post.upvotes.length
+
+          if user
+            if post.downvotes.includes(user._id)
+              a(href=post.url + '/downvote' class='downvoted') 
+                svg(viewBox="0 0 24 24")
+                  title arrow-up-bold-outline
+                  path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+                count= post.downvotes.length
+            else
+              a(href=post.url + '/downvote') 
+                svg(viewBox="0 0 24 24")
+                  title arrow-up-bold-outline
+                  path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+                count= post.downvotes.length
+          
+          else
+            a(href='/auth/login')
+              svg(viewBox="0 0 24 24")
+                title arrow-up-bold-outline
+                path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
+              count= post.downvotes.length

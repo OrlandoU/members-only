@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+    form(action="" method="POST").login-form
+        h1.header Login 
+        .inputs 
+            .input-container 
+                label(for="email") Email 
+                input(type="text" id='email' name='email')
+            .input-container 
+                label(for='password') Password
+                input(type="password" id='password' name='password')
+            button Login

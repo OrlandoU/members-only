@@ -1,8 +1,300 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px;
+  font: 14px;
+  display: flex;
+  font-family: 'Open Sans', sans-serif;
+  flex-direction: row-reverse;
+  justify-content: center;
+  max-height: 100vh;
 }
 
 a {
   color: #00B7FF;
+}
+
+nav {
+  height: 100vh;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.158);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 1.2rem;
+  width: clamp(300px, 50%, 450px)
+}
+svg{
+  width: 22px;
+}
+.left-side {
+  padding: 20px;
+  padding-bottom: 36px;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid gainsboro;
+
+}
+
+.left-side a{
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: rgb(2, 161, 126);
+
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 3rem;
+  gap: 12px;
+}
+
+.nav-links a {
+  font-weight: 600;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: gray;
+  transition: 300ms;
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.nav-links a:hover {
+  color: rgb(2, 161, 126);
+  background-color: rgb(170, 255, 227);
+}
+
+.nav-links a:hover svg {
+  fill: rgb(2, 161, 126);
+}
+
+.nav-links svg {
+  transition: inherit;
+  width: 24px;
+  fill: gray;
+}
+
+
+
+
+.auth-buttons{
+  display: flex;
+  margin-top: auto;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.auth-buttons a{
+  flex: 1 1 200px;
+  background-color: rgb(1, 134, 106);
+  color: white;
+  text-decoration: none;
+  padding: .5rem 3.5rem;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: 200ms linear;
+}
+.auth-buttons a:first-child{
+  background-color: rgb(170, 255, 227);
+  color: rgb(1, 134, 106);
+}
+
+.auth-buttons a:hover{
+  background-color: white;
+  box-shadow: 0px 0px 8px rgb(2, 161, 126);
+  color: rgb(1, 134, 106);
+}
+
+.user {
+  align-self: flex-end;
+  margin-top: auto;
+  background-color: rgb(170, 255, 227);
+  font-size: 1.1rem;
+  width: 100%;
+  padding: 12px 26px;
+  text-align: center;
+  border-radius: 25px;
+  color: rgb(1, 134, 106);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name svg{
+  width: 22px;
+  fill: rgb(1, 134, 106);
+}
+
+main {
+  padding: 18px;
+  width: clamp(300px, 100%, 900px);
+  overflow: auto;
+}
+
+.feed{
+  display: flex;
+  flex-direction: column;
+}
+.feed > * {
+  padding: 24px 16px;
+  border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.post-form {
+  padding: 0px 12px;
+  display: flex;
+  align-items: center;
+  transition: 100ms;
+  position: relative;
+  border-bottom: 1px solid rgb(170, 255, 227);
+}
+.post-form textarea{
+  flex: 1;
+  font-size: 1.2rem;
+  outline: 0px;
+  border: 0px;
+  padding: 18px 0px;
+  resize: none;
+  font-family: inherit;
+  font-weight: 500;
+}
+.post-form textarea::placeholder{
+  color: rgb(160, 160, 160);
+}
+.post-form textarea + span{
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(2, 161, 126);
+  left: 0px;
+  bottom: -1px;
+  transform: scaleX(0);
+  transition: 300ms;
+  border-radius: 15px;
+}
+.post-form textarea:not(:placeholder-shown) ~ button svg{
+  fill: rgb(2, 161, 126);
+}
+
+.post-form textarea:focus + span{
+  transform: scaleX(1);
+}
+
+.post-form button{
+  padding: 6px 8px 6px 10px;
+  margin: 0px;
+  background-color: transparent;
+  border: 0px;
+  transition: 300ms;
+  border-radius: 25px;
+}
+.post-form textarea:not(:placeholder-shown)~ button:hover{
+  background-color: rgb(170, 255, 227);
+}
+
+.post-form svg{
+  transition: 300ms;
+  fill: rgb(170, 255, 227);
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Post */
+.post{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.post-header{
+  display: flex;
+  gap: 4px;
+}
+.post-name{
+  font-weight: 700;
+}
+.post-mail{
+  color: rgb(2, 161, 126);
+  text-decoration: none;
+}
+.post-date{
+  position: relative;
+  margin-left: 8px;
+  color: rgb(2, 161, 126);
+}
+.post-date::before{
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  border-radius: 50%;
+  height: 3px;
+  background-color: rgb(1, 134, 106);
+  left: -6px;
+  transform: translateY(-50%);
+}
+
+.post-reactions {
+    display: flex;
+    justify-content: flex-start;
+}
+.post-reactions a{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: rgb(160, 160, 160);
+}
+.post-reactions svg{
+  fill: rgb(160, 160, 160);
+}
+.post-reactions a:last-child svg{
+  transform: rotate(180deg);
+}
+
+.post-reactions .downvoted{
+  color: red !important;
+
+}
+
+.post-reactions .upvoted{
+  color: #00B7FF !important;
+  fill: #00B7FF !important;
+}
+
+.post-reactions .downvoted svg {
+    fill: red !important;
+}
+.post-reactions .upvoted svg{
+  fill: #00B7FF !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 90, 90);
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
 }

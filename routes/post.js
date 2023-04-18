@@ -6,7 +6,11 @@ var postController = require('../controllers/postController')
 router.get('/:id', postController.detail)
 
 //Create post
-router.post('/create')
+router.post('/create', postController.create)
+
+router.get('/:id/upvote', postController.toggle_upvote)
+
+router.get('/:id/downvote', postController.toggle_downvote)
 
 //Update post, get request
 router.get('/:id/update')

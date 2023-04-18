@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+    form(action="", method="POST").login-form
+        h1.header Sign Up
+        .inputs 
+            .input-container 
+                label(for="firstName") First Name 
+                input(type="text" id='firstName' name='firstName' required)
+            .input-container 
+                label(for="lastName") Last Name 
+                input(type="text" id='lastName' name='lastName' required)
+            .input-container 
+                label(for="email") Email 
+                input(type="email" id='email' name='email' required)
+            .input-container 
+                label(for='password') Password
+                input(type="text" id='password' name='password' required)
+            .input-container 
+                label(for="confirmationPassword") Confirmation Password
+                input(type="text" id='confirmationPassword' name='confirmationPassword' required)
+            button Sign Up
+        if errors 
+            for error in errors 
+                .error error.msg
