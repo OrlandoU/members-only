@@ -1,34 +1,65 @@
 extends layout
 
 block content
-  h1= title
-  .feed 
+  .container
+    .row
+      .col-md-6.mx-auto
+        .card.mt-5
+          .card-header
+            h1.header My Profile
+          .card-body.detail
+            ul.list-group
+              li.list-group-item
+                strong User ID
+                span #{user._id}
+              li.list-group-item
+                strong Name
+                span #{user.first_name} #{user.last_name}
+              li.list-group-item
+                strong Email
+                span #{user.email}
+              if user.isMember 
+                li.list-group-item
+                    strong Member since
+                    span #{user.member_formatted_date}                         
+              li.list-group-item
+                strong Account Type
+                if user.isAdmin
+                  span.admin Admin
+                else if user.isMember
+                  span.member Member
+                else
+                  span.guest Guest
+              li.list-group-item
+                .count-container
+                    strong Upvotes
+                    span #{upvotes}
+                .count-container
+                    strong Downvotes
+                    span #{downvotes}
+                .count-container      
+                    strong Messages
+                    span #{messages} 
+  .feed.profile 
     if user
       if errors
        for error in errors 
          .error= error.msg
-      form(action="/post/create" method='POST').post-form
-        textarea(type="text" name='content' id='content' placeholder='Write your message...' rows='1' oninput="this.style.height='auto';this.style.height=(this.scrollHeight) +'px';" onkeydown="this.style.height='auto';this.style.height=(this.scrollHeight) +'px';")
-        span
-        button
-          svg(xmlns="http://www.w3.org/2000/svg" shape-rendering='geometricPrecision' height="24" viewBox="0 0 24 24")
-            path(d="M2,21L23,12L2,3V10L17,12L2,14V21Z")
     if posts
      for post in posts 
       .post(id=post._id) 
         .post-left 
-          if user && (user.isMember || user._id.toString() == post.user._id.toString()) 
+          if user && user.isMember 
             .post-header
               .post-name= post.user.full_name
-              .post-subheader
-                a(href="mailto:"+post.user.email).post-mail= post.user.email
-                .post-date= post.formatted_date 
+              a(href="mailto:"+post.user.email).post-mail= post.user.email
+              .post-date= post.formatted_date 
           else 
             .post-header 
               .post-name Anonymous 
               .post-date= post.formatted_date
           .post-content= post.content
-          if user && (user.isAdmin || user._id.toString() == post.user._id.toString() )
+          if (user && user.isAdmin )|| user._id.toString() == post.user._id.toString() 
             a(href=post.url + '/delete').post-delete Delete Post
         .post-reactions
           if user
@@ -71,3 +102,4 @@ block content
                 title arrow-up-bold-outline
                 path(d="M16,13V21H8V13H2L12,3L22,13H16M7,11H10V19H14V11H17L12,6L7,11Z")
               count= post.downvotes.length
+

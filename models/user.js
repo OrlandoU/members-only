@@ -8,18 +8,24 @@ const userSchema = new Schema({
     email: {type: String, required:true},
     isAdmin: {type: Boolean, default: false},
     isMember: {type: Boolean, default: false},
+    member_date: {type: Schema.Types.Date}
 })
 
+userSchema.virtual('member_formatted_date').get(function(){
+    const date = new Date(); // create a new Date object
+    const options = {
+        year: 'numeric',
+        month: 'long'
+    };
+    const formattedDate = date.toLocaleString('en-US', options);
+    return formattedDate
+})
 userSchema.virtual('full_name').get(function(){
     return `${this.first_name} ${this.last_name}`
 })
 
 userSchema.virtual('url').get(function(){
     return `/user/${this._id}`
-})
-
-userSchema.virtual('url_update').get(function(){
-    return `/user/${this._id}/updateStatus`
 })
 
 module.exports = mongoose.model('User', userSchema)

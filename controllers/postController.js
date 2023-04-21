@@ -16,6 +16,7 @@ exports.create = [
 
         if(!errors.isEmpty()){
             res.render('index', {
+                title: "Error creating post",
                 user: req.user,
                 errors: errors.array()
             })
@@ -54,7 +55,7 @@ exports.toggle_upvote = async (req, res) => {
     const posts = await Post.find({}).sort({ create_date: -1 }).populate('user')
 
     res.render('index', {
-        title: 'Feed Page',
+        title: 'Feed',
         user: req.user,
         posts,
         postId: req.params.id
@@ -80,7 +81,7 @@ exports.toggle_downvote = async (req, res) =>{
     const posts = await Post.find({}).sort({ create_date: -1 }).populate('user')
 
     res.render('index', {
-        title: 'Feed Page',
+        title: 'Feed',
         user: req.user,
         posts,
         postId: req.params.id
@@ -88,6 +89,30 @@ exports.toggle_downvote = async (req, res) =>{
 }
 
 
-exports.update_post = (req, res, next) => {
-    
+exports.delete_get = async (req, res, next) => {
+    if (!req.user) {
+        return res.redirect('/')
+    }
+    try {
+        const post = await Post.findById(req.params.id).populate('user')
+        res.render('post_delete', {
+            title: 'Deleting post: '+ post._id,
+            user: req.user,
+            post
+        })
+    } catch (error) {
+        return next(error)
+    }
+}
+
+exports.delete_post = async (req, res, next) => {
+    if(!req.user){
+        return res.redirect('/')
+    }
+    try {
+        await Post.findByIdAndDelete(req.body.postId)
+        res.redirect('/')
+    } catch(error){
+        return next(error)
+    }
 }

@@ -4,13 +4,18 @@ var Post = require('../models/post')
 
 /* GET home feed page. */
 router.get('/', async (req, res, next)=>{
-    const posts = await Post.find({}).sort({create_date: -1}).populate('user')
+    try {
+        const posts = await Post.find().sort({ create_date: -1 }).populate('user')
+
+        res.render('index', {
+            title: 'Feed',
+            user: req.user,
+            posts
+        })
+    } catch (error) {
+        next(error)
+    }
     
-    res.render('index', {
-        title: 'Feed Page',
-        user: req.user,
-        posts
-    })
 });
 
 module.exports = router;

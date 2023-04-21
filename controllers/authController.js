@@ -5,13 +5,15 @@ const { body, validationResult } = require('express-validator')
 
 exports.login_get = (req, res, next) => {
     res.render('login', {
+        title: 'Login',
         user: req.user
     })
 }
 
 exports.sign_get = (req, res, next) => {
     res.render('sign_up', {
-        user: req.user
+        user: req.user,
+        title: 'Sign Up'
     })
 }
 
@@ -37,6 +39,14 @@ exports.sign_post = [
         .escape()
         .isEmail()
         .withMessage('Email: Invalid Email')
+        .custom(async(value)=>{
+            const user = await User.countDocuments({email: value})
+            console.log(user)
+            if(user){
+                throw new Error('Email is already in use');
+            }
+            return true
+        })
     ,
     body('password')
         .trim()
@@ -54,6 +64,7 @@ exports.sign_post = [
 
         if (!errors.isEmpty()) {
             return res.render('sign_up', {
+                title: 'Error on Sign Up',
                 errors: errors.array(),
             });
         }

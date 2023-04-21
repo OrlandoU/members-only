@@ -1,0 +1,27 @@
+extends layout 
+
+block content         
+    form(action="", method="POST").container.login-form
+     .row
+      .col-md-6.mx-auto
+        .card.mt-5
+          .card-header
+            h1.header Delete Post
+          .card-body
+            ul.list-group
+              li.list-group-item
+                strong Post User Name
+                span #{post.user.full_name }
+              li.list-group-item
+                strong Post Create Date
+                span #{post.create_date}
+              li.list-group-item 
+                strong Post Content 
+                span #{post.content}
+              li.list-group-item
+            strong Are you sure you want to delete this post
+            input(type="text" value=post._id name='postId' hidden)
+            button.post-delete Delete
+            if errors 
+                for error in errors 
+                    .error=error.msg

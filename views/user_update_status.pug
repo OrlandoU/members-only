@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+    form(action="", method="POST").login-form
+      .login-right
+        h1.header Membership Activation
+        .inputs 
+            .input-container 
+                input(type="text" id='firstName' name='passcode' required placeholder=' ')
+                label(for="firstName") Secret Passcode 
+            button Save
+        if errors 
+            for error in errors 
+                .error=error.msg

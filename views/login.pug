@@ -2,12 +2,19 @@ extends layout
 
 block content 
     form(action="" method="POST").login-form
-        h1.header Login 
-        .inputs 
-            .input-container 
-                label(for="email") Email 
-                input(type="text" id='email' name='email')
-            .input-container 
-                label(for='password') Password
-                input(type="password" id='password' name='password')
-            button Login
+        .login-left
+            img(src="/images/logo-white.svg" alt="").logo
+            p Welcome back to our exclusive community! Please enter your login credentials to access your private messages and connect with fellow members.
+        .login-right
+            h1.header Login 
+            .inputs 
+                .input-container 
+                    input(type="text" id='email' name='email' placeholder=' ')
+                    label(for="email") Email 
+                .input-container 
+                    input(type="password" id='password' name='password' placeholder=' ')
+                    label(for='password') Password
+                button Login
+            .alt 
+                span Not a member? 
+                a(href="/auth/sign-up") Sign Up 

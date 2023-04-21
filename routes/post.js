@@ -12,16 +12,10 @@ router.get('/:id/upvote', postController.toggle_upvote)
 
 router.get('/:id/downvote', postController.toggle_downvote)
 
-//Update post, get request
-router.get('/:id/update')
-
-//Update post, post request
-router.post('/:id/update')
-
 //Delete post, get request
-router.get('/:id/delete')
+router.get('/:id/delete', postController.delete_get)
 
 //Delete post, post request
-router.post('/:id/delete')
+router.post('/:id/delete', postController.delete_post)
 
 module.exports = router
